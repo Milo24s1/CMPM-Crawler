@@ -75,4 +75,4 @@ const readUserInput = function () {
     });
 };
 
-extractLinksByPageNumber(1,2);
+readUserInput();
