@@ -2,26 +2,26 @@ const request = require('request');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const readline = require('readline');
-
+const selector = '.col-xs-12.col-sm-6.col-md-4 a[title="download"]';
 
 const extractLinksByPageNumber = function(startPage,endPage){
     let getOptions = {
         url: 'http://fmderana.lk/jokes',
         headers: {'User-agent':'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:49.0) Gecko/20100101 Firefox/49.0'},
         jar: true,
-        followAllRedirects: true,
+        followAllRedirects: false,
 
     };
     while (startPage<=endPage){
 
-        if(startPage!==1){
-            getOptions.url = getOptions.url+`/page/${startPage}`;
+        if(startPage!=1){
+            getOptions.url = `http://fmderana.lk/jokes/page/${startPage}`;
         }
         request.get(getOptions, (error, response, html) => {
 
             if (!error) {
                 const $ = cheerio.load(html);
-                let urlString = $('a[title="download"]').map(function(i, el) {
+                let urlString = $(selector).map(function(i, el) {
                     return $(this).attr('href');
                 }).get().join('\n');
 
