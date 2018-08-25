@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const request = require('request');
 const cheerio = require('cheerio');
 const fs = require('fs');
@@ -88,7 +90,7 @@ const extractLinksByPageNumber = function(startPage,endPage){
     while (currentPage<=endPage){
 
         if(currentPage!=1){
-            getOptions.url = `http://fmderana.lk/jokes/page/${startPage}`;
+            getOptions.url = `http://fmderana.lk/jokes/page/${currentPage}`;
         }
         request.get(getOptions, (error, response, html) => {
 
